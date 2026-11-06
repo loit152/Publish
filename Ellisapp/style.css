@@ -1,0 +1,542 @@
+/* =========================
+   基本設定
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #111;
+    color: #eee;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================
+   全体
+========================= */
+
+main {
+    width: min(900px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 64px;
+}
+
+h1,
+h2,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+
+/* =========================
+   セクション
+========================= */
+
+.panel {
+    margin-top: 20px;
+    padding: 20px;
+
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 12px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.section-header h1,
+.section-header h2 {
+    margin-bottom: 0;
+}
+
+
+/* =========================
+   ボタン
+========================= */
+
+button {
+    padding: 9px 16px;
+
+    color: #eee;
+    background: #292929;
+
+    border: 1px solid #444;
+    border-radius: 8px;
+
+    transition:
+        background-color 0.15s,
+        border-color 0.15s;
+}
+
+button:hover {
+    background: #333;
+    border-color: #555;
+}
+
+button:active {
+    background: #222;
+}
+
+.primary-button {
+    background: #eee;
+    color: #111;
+    border-color: #eee;
+}
+
+.primary-button:hover {
+    background: #fff;
+    border-color: #fff;
+}
+
+.danger-button {
+    color: #ffb0b0;
+    border-color: #633;
+    background: #281717;
+}
+
+.danger-button:hover {
+    background: #351b1b;
+    border-color: #855;
+}
+
+
+/* =========================
+   問題セット一覧
+========================= */
+
+#setList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.set-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.set-item:hover {
+    background: #292929;
+}
+
+.set-item.selected {
+    border-color: #777;
+    background: #2d2d2d;
+}
+
+.set-item > span:first-child {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.set-item > span:nth-child(2) {
+    color: #999;
+    white-space: nowrap;
+}
+
+.set-item button {
+    padding: 6px 10px;
+}
+
+
+/* =========================
+   入力フォーム
+========================= */
+
+label {
+    display: block;
+
+    margin-bottom: 16px;
+
+    color: #ccc;
+}
+
+input,
+textarea {
+    display: block;
+
+    width: 100%;
+    margin-top: 7px;
+    padding: 10px 12px;
+
+    color: #eee;
+    background: #151515;
+
+    border: 1px solid #444;
+    border-radius: 8px;
+
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #888;
+}
+
+textarea {
+    min-height: 280px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+input[type="number"] {
+    width: 110px;
+}
+
+
+/* =========================
+   範囲指定
+========================= */
+
+.range {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.range label {
+    margin: 0;
+}
+
+.range span {
+    padding-bottom: 10px;
+}
+
+
+/* =========================
+   ボタン行
+========================= */
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/* =========================
+   暗記度
+========================= */
+
+#masteryList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.mastery-item {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 100px 55px;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 10px;
+
+    background: #222;
+    border-radius: 6px;
+}
+
+.mastery-number {
+    color: #888;
+    text-align: right;
+}
+
+.mastery-question {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mastery-bar {
+    height: 8px;
+
+    overflow: hidden;
+
+    background: #333;
+    border-radius: 999px;
+}
+
+.mastery-fill {
+    height: 100%;
+
+    background: #eee;
+
+    border-radius: inherit;
+}
+
+.mastery-percent {
+    color: #aaa;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================
+   クイズ
+========================= */
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    color: #aaa;
+}
+
+#progress {
+    font-variant-numeric: tabular-nums;
+}
+
+.quiz-card {
+    padding: 32px 24px;
+
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 14px;
+
+    text-align: center;
+}
+
+.quiz-label {
+    margin-bottom: 24px;
+
+    color: #888;
+    font-size: 14px;
+}
+
+.question {
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+.question-explanation {
+    margin-bottom: 24px;
+
+    color: #aaa;
+    line-height: 1.7;
+}
+
+.answer {
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+.keyboard-help {
+    margin-top: 20px;
+
+    color: #666;
+    font-size: 13px;
+}
+
+
+/* =========================
+   編集画面
+========================= */
+
+#editScreen {
+    max-width: 900px;
+}
+
+#editScreen h1 {
+    margin-bottom: 24px;
+}
+
+
+/* =========================
+   完了画面
+========================= */
+
+#completeScreen .quiz-card {
+    padding: 48px 24px;
+}
+
+#completeScreen h2 {
+    font-size: 28px;
+}
+
+
+/* =========================
+   スクロールバー
+========================= */
+
+#masteryList::-webkit-scrollbar {
+    width: 8px;
+}
+
+#masteryList::-webkit-scrollbar-track {
+    background: #181818;
+}
+
+#masteryList::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 999px;
+}
+
+
+/* =========================
+   スマートフォン
+========================= */
+
+@media (max-width: 600px) {
+
+    main {
+        width: min(
+            100% - 20px,
+            900px
+        );
+
+        padding-top: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .range {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .range span {
+        display: none;
+    }
+
+    .range label:last-child {
+        grid-column: 1 / -1;
+    }
+
+    input[type="number"] {
+        width: 100%;
+    }
+
+    .set-item {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .set-item > span:nth-child(2) {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .set-item button {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .mastery-item {
+        grid-template-columns: 30px minmax(0, 1fr) 50px;
+    }
+
+    .mastery-bar {
+        display: none;
+    }
+
+    .quiz-card {
+        padding: 28px 16px;
+    }
+
+    .button-row {
+        flex-direction: column;
+    }
+
+    .button-row button {
+        width: 100%;
+    }
+
+/* 問題文の補足説明 */
+.question-explanation {
+    margin-top: 8px;
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: #888;
+    font-weight: normal;
+}
+
+}
