@@ -540,7 +540,9 @@ input[type="number"] {
 }
 
 }
-
+#ccc{
+    column-gap: 16px;
+}
 #zaregoto{
     padding: 32px 24px;
 
