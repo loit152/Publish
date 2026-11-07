@@ -541,6 +541,16 @@ input[type="number"] {
 
 }
 
+.zaregoto{
+    padding: 32px 24px;
+
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 14px;
+
+    text-align: center;
+}
+
 .marquee {
   display: flex;
   white-space: nowrap;
