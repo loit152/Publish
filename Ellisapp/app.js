@@ -166,22 +166,26 @@ function loadData() {
             return;
         }
 
-        sets = parsed.map(set => ({
-            id: set.id || createId(),
+        sets = parsed.map(set => {
 
-            name:
-                String(
-                    set.name ?? "無題"
-                ),
-
-            problems:
+            const problems =
                 Array.isArray(set.problems)
-                    ? set.problems.map(
-                        normalizeProblem
-                    )
-                    : []
-        }));
+                    ? set.problems.map(normalizeProblem)
+                    : [];
 
+            return {
+                id: set.id || createId(),
+
+                name: String(set.name ?? "無題"),
+
+                problems,
+
+                range: normalizeRangeSettings(
+                    set.range,
+                    problems.length
+                )
+            };
+        });
     } catch (error) {
 
         console.error(
@@ -461,68 +465,61 @@ function selectSet(id) {
 
 function adjustQuestionRange() {
 
-    const set =
-        getSelectedSet();
-
+    const set = getSelectedSet();
 
     if (!set || set.problems.length === 0) {
         return;
     }
 
+    const problemCount = set.problems.length;
 
-    const problemCount =
-        set.problems.length;
+    let start = Number(rangeStart.value);
+    let end = Number(rangeEnd.value);
 
+    if (isNaN(start) || start < 1) {
+        start = 1;
+    }
 
-    let start =
-        Number(rangeStart.value);
+    if (start > problemCount) {
+        start = problemCount;
+    }
 
-    let end =
-        Number(rangeEnd.value);
+    if (isNaN(end) || end > problemCount) {
+        end = problemCount;
+    }
 
-
-    if (isNaN(start) || start < 1) start = 1;
-
-    if (start > problemCount) start = problemCount;
-
-
-    if (isNaN(end) || end > problemCount) end = problemCount;
-
-    if (end < start) end = start;
-
+    if (end < start) {
+        end = start;
+    }
 
     rangeStart.value = start;
-
     rangeEnd.value = end;
 
+    const available = end - start + 1;
 
-    const available =
-        end - start + 1;
+    questionCount.max = available;
 
+    let currentCount = Number(questionCount.value);
 
-    questionCount.max =
-        available;
+    if (isNaN(currentCount) || currentCount < 1) {
 
+        currentCount = Math.min(10, available);
 
-    let currentCount =
-        Number(questionCount.value);
+    } else if (currentCount > available) {
 
-
-    if (
-        isNaN(currentCount) ||
-        currentCount < 1
-    ) {
-
-        questionCount.value =
-            Math.min(10, available);
-
-    } else if (
-        currentCount > available
-    ) {
-
-        questionCount.value =
-            available;
+        currentCount = available;
     }
+
+    questionCount.value = currentCount;
+
+    // 出題範囲を問題セットに保存
+    set.range = {
+        start,
+        end,
+        count: currentCount
+    };
+
+    saveData();
 }
 
 
@@ -532,9 +529,7 @@ function adjustQuestionRange() {
 
 function updateSelectedSet() {
 
-    const set =
-        getSelectedSet();
-
+    const set = getSelectedSet();
 
     if (!set) {
 
@@ -545,36 +540,32 @@ function updateSelectedSet() {
         return;
     }
 
-
     selectedPanel.hidden = false;
     masteryPanel.hidden = false;
     resetPanel.hidden = false;
 
+    selectedSetName.textContent = set.name;
 
-    selectedSetName.textContent =
-        set.name;
+    const problemCount = set.problems.length;
 
-
-    const problemCount =
-        set.problems.length;
-
+    // 保存されていた範囲を復元
+    set.range = normalizeRangeSettings(
+        set.range,
+        problemCount
+    );
 
     rangeStart.min = 1;
-
     rangeStart.max = problemCount;
 
     rangeEnd.min = 1;
-
     rangeEnd.max = problemCount;
 
+    rangeStart.value = set.range.start;
+    rangeEnd.value = set.range.end;
 
-    rangeStart.value = 1;
-
-    rangeEnd.value = problemCount;
-
+    questionCount.value = set.range.count;
 
     adjustQuestionRange();
-
 
     renderMastery();
 }
@@ -1144,6 +1135,55 @@ function preserveProblems(
                         normalizeMastery(
                             oldProblem.mastery
                         )
+                                        /* 
+                出題範囲の正常化
+                */
+
+                function normalizeRangeSettings(range, problemCount) {
+
+                    if (problemCount <= 0) {
+                        return {
+                            start: 1,
+                            end: 1,
+                            count: 1
+                        };
+                    }
+
+                    const toInteger = (value, fallback) => {
+                        const number = Number(value);
+
+                        return Number.isInteger(number)
+                            ? number
+                            : fallback;
+                    };
+
+                    let start = toInteger(range?.start, 1);
+
+                    let end = toInteger(range?.end, problemCount);
+
+                    let count = toInteger(
+                        range?.count,
+                        Math.min(10, problemCount)
+                    );
+
+                    start = Math.max(1, Math.min(problemCount, start));
+
+                    end = Math.max(1, Math.min(problemCount, end));
+
+                    if (end < start) {
+                        end = start;
+                    }
+
+                    const available = end - start + 1;
+
+                    count = Math.max(1, Math.min(available, count));
+
+                    return {
+                        start,
+                        end,
+                        count
+                    };
+}
                 };
             }
 
@@ -1217,24 +1257,25 @@ function saveEdit() {
 
             name,
 
+            range: {
+                start: 1,
+                end: newProblems.length,
+                count: Math.min(10, newProblems.length)
+            },
+
             problems:
-                newProblems.map(
-                    problem => ({
+                newProblems.map(problem => ({
 
-                        id: createId(),
+                    id: createId(),
 
-                        question:
-                            problem.question,
+                    question: problem.question,
 
-                        explanation:
-                            problem.explanation,
+                    explanation: problem.explanation,
 
-                        answer:
-                            problem.answer,
+                    answer: problem.answer,
 
-                        mastery: 0
-                    })
-                )
+                    mastery: 0
+                }))
         };
 
 
@@ -1388,7 +1429,20 @@ function createQuizProblems(
             1
         );
     }
+    /*
+       選ばれた問題の順番をランダム化
+       Fisher-Yates shuffle
+    */
 
+    for (let i = result.length - 1; i > 0; i--) {
+
+        const j = Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        [result[i], result[j]] =
+            [result[j], result[i]];
+    }
 
     return result;
 }
@@ -1845,6 +1899,10 @@ backButton.addEventListener(
     showMainScreen
 );
 
+questionCount.addEventListener(
+    "change",
+    adjustQuestionRange
+);
 
 /* 
    キーボード
