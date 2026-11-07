@@ -3,7 +3,7 @@
 
 const $ = id => document.getElementById(id);
 
-const mainScreen = $("mainScreen");
+const mainScreen = getElementsByClassName("mainScrean");
 const editScreen = $("editScreen");
 const quizScreen = $("quizScreen");
 const answerScreen = $("answerScreen");
