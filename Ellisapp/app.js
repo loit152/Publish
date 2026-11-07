@@ -272,7 +272,7 @@ function getSelectedSet() {
 /* 
    画面切り替え
  */
-/*
+
 function hideScreens() {
 
     mainScreen.hidden = true;
@@ -324,7 +324,7 @@ function showCompleteScreen() {
     completeScreen.hidden = false;
 }
 
-*/
+
 /* 
    セット一覧表示
  */
