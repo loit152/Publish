@@ -115,6 +115,23 @@ function normalizeMastery(value) {
     );
 }
 /*
+   問題データの正常化
+*/
+
+function normalizeProblem(problem) {
+    return {
+        id: problem.id || createId(),
+
+        question: String(problem.question ?? ""),
+
+        explanation: String(problem.explanation ?? ""),
+
+        answer: String(problem.answer ?? ""),
+
+        mastery: normalizeMastery(problem.mastery)
+    };
+}
+/*
    出題範囲の正常化
 */
 
@@ -1130,158 +1147,6 @@ function parseProblems(text) {
 }
 
 
-/* 
-   既存データを維持
- */
-
-function preserveProblems(
-    oldProblems,
-    newProblems
-) {
-
-    const used =
-        new Set();
-
-
-    return newProblems.map(
-        newProblem => {
-
-            let oldIndex = -1;
-
-
-            for (
-                let i = 0;
-                i < oldProblems.length;
-                i++
-            ) {
-
-                if (
-                    used.has(i)
-                ) {
-                    continue;
-                }
-
-
-                const oldProblem =
-                    oldProblems[i];
-
-
-                if (
-                    oldProblem.question ===
-                        newProblem.question &&
-
-                    oldProblem.explanation ===
-                        newProblem.explanation &&
-
-                    oldProblem.answer ===
-                        newProblem.answer
-                ) {
-
-                    oldIndex = i;
-
-                    break;
-                }
-            }
-
-
-            if (
-                oldIndex !== -1
-            ) {
-
-                used.add(oldIndex);
-
-
-                const oldProblem =
-                    oldProblems[oldIndex];
-
-
-                return {
-                    id:
-                        oldProblem.id,
-
-                    question:
-                        newProblem.question,
-
-                    explanation:
-                        newProblem.explanation,
-
-                    answer:
-                        newProblem.answer,
-
-                    mastery:
-                        normalizeMastery(
-                            oldProblem.mastery
-                        )
-                                        /* 
-                出題範囲の正常化
-                */
-
-                function normalizeRangeSettings(range, problemCount) {
-
-                    if (problemCount <= 0) {
-                        return {
-                            start: 1,
-                            end: 1,
-                            count: 1
-                        };
-                    }
-
-                    const toInteger = (value, fallback) => {
-                        const number = Number(value);
-
-                        return Number.isInteger(number)
-                            ? number
-                            : fallback;
-                    };
-
-                    let start = toInteger(range?.start, 1);
-
-                    let end = toInteger(range?.end, problemCount);
-
-                    let count = toInteger(
-                        range?.count,
-                        Math.min(10, problemCount)
-                    );
-
-                    start = Math.max(1, Math.min(problemCount, start));
-
-                    end = Math.max(1, Math.min(problemCount, end));
-
-                    if (end < start) {
-                        end = start;
-                    }
-
-                    const available = end - start + 1;
-
-                    count = Math.max(1, Math.min(available, count));
-
-                    return {
-                        start,
-                        end,
-                        count
-                    };
-}
-                };
-            }
-
-
-            return {
-                id: createId(),
-
-                question:
-                    newProblem.question,
-
-                explanation:
-                    newProblem.explanation,
-
-                answer:
-                    newProblem.answer,
-
-                mastery: 0
-            };
-        }
-    );
-}
 
 
 /* 
