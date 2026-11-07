@@ -1,8 +1,5 @@
-"use strict";
 
-/* =========================
-   DOM
-========================= */
+/* DOM */
 
 const $ = id => document.getElementById(id);
 
@@ -51,9 +48,7 @@ const knowButton = $("knowButton");
 const backButton = $("backButton");
 
 
-/* =========================
-   保存設定
-========================= */
+/* 保存設定 */
 
 const STORAGE_KEY =
     "ellis-problem-data";
@@ -62,17 +57,17 @@ const SELECTED_KEY =
     "ellis-selected-set";
 
 
-/* =========================
+/* 
    クイズ設定
-========================= */
+ */
 
 const CORRECT_POINT = 10;
 const WRONG_POINT = 15;
 
 
-/* =========================
+/* 
    アプリ状態
-========================= */
+ */
 
 let sets = [];
 
@@ -89,9 +84,9 @@ let quizTotal = 0;
 let currentNumber = 0;
 
 
-/* =========================
+/* 
    ID生成
-========================= */
+ */
 
 function createId() {
     return (
@@ -103,9 +98,9 @@ function createId() {
 }
 
 
-/* =========================
+/* 
    習熟度
-========================= */
+ */
 
 function normalizeMastery(value) {
     const number = Number(value);
@@ -121,9 +116,9 @@ function normalizeMastery(value) {
 }
 
 
-/* =========================
+/* 
    問題を正常化
-========================= */
+ */
 
 function normalizeProblem(problem) {
     return {
@@ -146,9 +141,9 @@ function normalizeProblem(problem) {
 }
 
 
-/* =========================
+/* 
    データ読み込み
-========================= */
+ */
 
 function loadData() {
     try {
@@ -203,9 +198,9 @@ function loadData() {
 }
 
 
-/* =========================
+/* 
    データ保存
-========================= */
+ */
 
 function saveData() {
     try {
@@ -229,9 +224,9 @@ function saveData() {
 }
 
 
-/* =========================
+/* 
    選択セット保存
-========================= */
+ */
 
 function saveSelectedSet() {
     try {
@@ -260,9 +255,9 @@ function saveSelectedSet() {
 }
 
 
-/* =========================
+/* 
    選択セット取得
-========================= */
+ */
 
 function getSelectedSet() {
 
@@ -274,10 +269,10 @@ function getSelectedSet() {
 }
 
 
-/* =========================
+/* 
    画面切り替え
-========================= */
-
+ */
+/*
 function hideScreens() {
 
     mainScreen.hidden = true;
@@ -329,10 +324,10 @@ function showCompleteScreen() {
     completeScreen.hidden = false;
 }
 
-
-/* =========================
+*/
+/* 
    セット一覧表示
-========================= */
+ */
 
 function renderSets() {
 
@@ -433,9 +428,9 @@ function renderSets() {
 }
 
 
-/* =========================
+/* 
    セット選択
-========================= */
+ */
 
 function selectSet(id) {
 
@@ -460,9 +455,9 @@ function selectSet(id) {
 }
 
 
-/* =========================
+/* 
    出題数入力値の自動調整
-========================= */
+ */
 
 function adjustQuestionRange() {
 
@@ -531,9 +526,9 @@ function adjustQuestionRange() {
 }
 
 
-/* =========================
+/* 
    選択セット表示
-========================= */
+ */
 
 function updateSelectedSet() {
 
@@ -585,9 +580,9 @@ function updateSelectedSet() {
 }
 
 
-/* =========================
+/* 
    習熟度表示
-========================= */
+ */
 
 function renderMastery() {
 
@@ -722,9 +717,9 @@ function renderMastery() {
 }
 
 
-/* =========================
+/* 
    セット削除
-========================= */
+ */
 
 function deleteSet(id) {
 
@@ -772,9 +767,9 @@ function deleteSet(id) {
 }
 
 
-/* =========================
+/* 
    新規セット
-========================= */
+ */
 
 function createNewSet() {
 
@@ -793,9 +788,9 @@ function createNewSet() {
 }
 
 
-/* =========================
+/* 
    編集開始
-========================= */
+ */
 
 function editSelectedSet() {
 
@@ -857,9 +852,9 @@ function editSelectedSet() {
 }
 
 
-/* =========================
+/* 
    スラッシュ検索
-========================= */
+ */
 
 function findSlash(text) {
 
@@ -896,9 +891,9 @@ function findSlash(text) {
 }
 
 
-/* =========================
+/* 
    1行を問題に変換
-========================= */
+ */
 
 function parseLine(line) {
 
@@ -1054,9 +1049,9 @@ function parseLine(line) {
 }
 
 
-/* =========================
+/* 
    問題解析
-========================= */
+ */
 
 function parseProblems(text) {
 
@@ -1067,9 +1062,9 @@ function parseProblems(text) {
 }
 
 
-/* =========================
+/* 
    既存データを維持
-========================= */
+ */
 
 function preserveProblems(
     oldProblems,
@@ -1172,9 +1167,9 @@ function preserveProblems(
 }
 
 
-/* =========================
+/* 
    編集保存
-========================= */
+ */
 
 function saveEdit() {
 
@@ -1298,9 +1293,9 @@ function saveEdit() {
 }
 
 
-/* =========================
+/* 
    クイズ問題作成
-========================= */
+ */
 
 function createQuizProblems(
     start,
@@ -1399,9 +1394,9 @@ function createQuizProblems(
 }
 
 
-/* =========================
+/* 
    クイズ開始
-========================= */
+ */
 
 function startQuiz() {
 
@@ -1516,14 +1511,14 @@ function startQuiz() {
 }
 
 
-/* =========================
+/* 
    次の問題
-========================= */
+ */
 
 
-/* =========================
+/* 
    次の問題
-========================= */
+ */
 
 function nextQuestion() {
 
@@ -1557,14 +1552,14 @@ function nextQuestion() {
 }
 
 
-/* =========================
+/* 
    答えを見る
-========================= */
+ */
 
 
-/* =========================
+/* 
    答えを見る
-========================= */
+ */
 
 function showAnswer() {
 
@@ -1578,9 +1573,9 @@ function showAnswer() {
 }
 
 
-/* =========================
+/* 
    問題検索
-========================= */
+ */
 
 function findProblem(id) {
 
@@ -1600,9 +1595,9 @@ function findProblem(id) {
 }
 
 
-/* =========================
+/* 
    わかる
-========================= */
+ */
 
 function markKnown() {
 
@@ -1640,9 +1635,9 @@ function markKnown() {
 }
 
 
-/* =========================
+/* 
    わからない
-========================= */
+ */
 
 function markUnknown() {
 
@@ -1684,9 +1679,9 @@ function markUnknown() {
 }
 
 
-/* =========================
+/* 
    クイズ終了
-========================= */
+ */
 
 function finishQuiz() {
 
@@ -1698,9 +1693,9 @@ function finishQuiz() {
 }
 
 
-/* =========================
+/* 
    暗記度リセット
-========================= */
+ */
 
 function resetMastery() {
 
@@ -1739,9 +1734,9 @@ function resetMastery() {
 }
 
 
-/* =========================
+/* 
    全削除
-========================= */
+ */
 
 function resetAll() {
 
@@ -1769,9 +1764,9 @@ function resetAll() {
 }
 
 
-/* =========================
+/* 
    イベント
-========================= */
+ */
 
 newSetButton.addEventListener(
     "click",
@@ -1851,9 +1846,9 @@ backButton.addEventListener(
 );
 
 
-/* =========================
+/* 
    キーボード
-========================= */
+ */
 
 document.addEventListener(
     "keydown",
@@ -1918,9 +1913,9 @@ document.addEventListener(
 );
 
 
-/* =========================
+/* 
    初期化
-========================= */
+ */
 
 loadData();
 
@@ -1959,3 +1954,7 @@ if (
 
 
 showMainScreen();
+
+/*mrtquee*/
+onst marqueeTexts = document.querySelectorAll('.marquee-inner');
+marqueeTexts.forEach((marqueeText) => {marqueeText.animate({translate: [0, 'calc(-100% - 1rem)']},{duration: 20000,iterations: Infinity});});

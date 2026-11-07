@@ -2,13 +2,8 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ellis</title>
-
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="asset/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="asset/favicon.ico" sizes="any">
@@ -18,91 +13,47 @@
 <body>
 
 <main>
-
-    <!-- =========================
-         メイン画面
-    ========================== -->
+    <div class="marquee">
+    <div class="marquee-inner">メンテナンス中</div>
+    <div class="marquee-inner" aria-hidden="true">メンテナンス中</div>
+</div>
+    <!-- ========================== -->
     <section id="mainScreen">
 
         <header class="section-header">
             <h1>Ellis</h1>
-
-            <button
-                id="newSetButton"
-                type="button"
-            >
-                ＋ 新規
-            </button>
+            <button id="newSetButton" type="button">＋ 新規プリセット</button>
         </header>
 
-
-        <!-- 問題セット一覧 -->
         <section class="panel">
-
             <h2>問題セット</h2>
-
             <div id="setList"></div>
-
         </section>
 
-
-        <!-- 選択中のセット -->
-        <section
-            id="selectedPanel"
-            class="panel"
-            hidden
-        >
-
+        <section id="selectedPanel" class="panel" hidden>
             <header class="section-header">
-
                 <h2 id="selectedSetName"></h2>
-
-                <button
-                    id="editSelectedButton"
-                    type="button"
-                >
-                    編集
-                </button>
-
+                <button id="editSelectedButton" type="button">編集</button>
             </header>
 
-
             <div class="range">
-
                 <label>
                     開始
-                    <input
-                        id="rangeStart"
-                        type="number"
-                        min="1"
-                        value="1"
-                    >
+                    <input id="rangeStart" type="number" min="1" value="1">
                 </label>
 
                 <span>〜</span>
 
                 <label>
                     終了
-                    <input
-                        id="rangeEnd"
-                        type="number"
-                        min="1"
-                        value="1"
-                    >
+                    <input id="rangeEnd" type="number" min="1" value="1">
                 </label>
 
                 <label>
                     問題数
-                    <input
-                        id="questionCount"
-                        type="number"
-                        min="1"
-                        value="1"
-                    >
+                    <input id="questionCount" type="number" min="1" value="1">
                 </label>
-
             </div>
-
 
             <button
                 id="startButton"
@@ -111,255 +62,103 @@
             >
                 問題を開始
             </button>
-
         </section>
 
-
-        <!-- 習熟度 -->
-        <section
-            id="masteryPanel"
-            class="panel"
-            hidden
-        >
-
+        <section id="masteryPanel" class="panel" hidden>
             <header class="section-header">
-
                 <h2>暗記度</h2>
-
-                <strong id="averageMastery">
-                    0%
-                </strong>
-
+                <strong id="averageMastery">0%</strong>
             </header>
-
             <div id="masteryList"></div>
-
         </section>
 
-
-        <!-- リセット -->
-        <section
-            id="resetPanel"
-            class="panel"
-            hidden
-        >
-
-            <button
-                id="resetMasteryButton"
-                type="button"
-            >
-                暗記度をリセット
-            </button>
-
-            <button
-                id="resetAllButton"
-                class="danger-button"
-                type="button"
-            >
-                すべて削除
-            </button>
-
+        <section id="resetPanel" class="panel" hidden>
+            <button id="resetMasteryButton" type="button">暗記度をリセット</button>
+            <button id="resetAllButton" class="danger-button" type="button">すべて削除</button>
         </section>
-
     </section>
 
 
-    <!-- =========================
-         編集画面
-    ========================== -->
-    <section
-        id="editScreen"
-        hidden
-    >
-
-        <h1 id="editTitle">
-            新しい問題セット
-        </h1>
-
-
+    <!-- ========================== -->
+    <section id="editScreen" hidden>
+        <h1 id="editTitle">新しい問題セット</h1>
         <label>
             セット名
-
-            <input
-                id="editName"
-                type="text"
-                placeholder="例：システム英単語"
-            >
+            <input id="editName" type="text" placeholder="例:二学期期末対策">
         </label>
-
 
         <label>
             問題
-
-            <textarea
-                id="problemInput"
-                rows="15"
-                placeholder="campaign * 名詞 / 運動、キャンペーン&#10;recall * 動詞 / ～を思い出す&#10;explore * 動詞 / ～を探検する"
-            ></textarea>
-
+            <textarea id="problemInput" rows="15" placeholder="campaign * 名詞 / 運動、キャンペーン&#10;recall * 動詞 / ～を思い出す&#10;explore * 動詞 / ～を探検する"></textarea>
         </label>
 
-
         <div class="button-row">
-
-            <button
-                id="saveEditButton"
-                class="primary-button"
-                type="button"
-            >
+            <button id="saveEditButton" class="primary-button" type="button">
                 保存
             </button>
 
-            <button
-                id="cancelEditButton"
-                type="button"
-            >
+            <button id="cancelEditButton" type="button">
                 キャンセル
             </button>
-
         </div>
-
     </section>
 
 
-    <!-- =========================
-         問題画面
-    ========================== -->
-    <section
-        id="quizScreen"
-        hidden
-    >
-
+    <!-- ========================== -->
+    <section id="quizScreen" hidden>
         <header class="quiz-header">
-
             <span id="quizSetName"></span>
-
             <span id="progress"></span>
-
         </header>
 
-
         <div class="quiz-card">
+            <div class="quiz-label">問題</div>
+            <div id="question" class="question"></div>
 
-            <div class="quiz-label">
-                問題
-            </div>
+            <div id="questionExplanation" class="question-explanation" hidden></div>
 
-
-            <div
-                id="question"
-                class="question"
-            ></div>
-
-
-            <div
-                id="questionExplanation"
-                class="question-explanation"
-                hidden
-            ></div>
-
-
-            <button
-                id="showAnswerButton"
-                class="primary-button"
-                type="button"
-            >
+            <button id="showAnswerButton" class="primary-button" type="button">
                 答えを見る
             </button>
-
 
             <div class="keyboard-help">
                 Space：答えを見る
             </div>
-
         </div>
-
     </section>
-
-
-    <!-- =========================
-         答え画面
-    ========================== -->
-    <section
-        id="answerScreen"
-        hidden
-    >
-
+    <!-- ========================== -->
+    <section id="answerScreen" hidden>
         <div class="quiz-card">
-
-            <div class="quiz-label">
-                答え
-            </div>
-
-
-            <div
-                id="answer"
-                class="answer"
-            ></div>
-
+            <div class="quiz-label">答え</div>
+            <div id="answer" class="answer"></div>
 
             <div class="button-row">
-
-                <button
-                    id="unknownButton"
-                    type="button"
-                >
+                <button id="unknownButton" type="button">
                     わからない
                 </button>
-
-                <button
-                    id="knowButton"
-                    class="primary-button"
-                    type="button"
-                >
+                <button id="knowButton" class="primary-button" type="button">
                     わかる
                 </button>
-
             </div>
-
-
             <div class="keyboard-help">
                 ←：わからない　→：わかる
             </div>
-
         </div>
-
     </section>
 
 
-    <!-- =========================
-         完了画面
-    ========================== -->
-    <section
-        id="completeScreen"
-        hidden
-    >
-
+    <!-- ========================== -->
+    <section id="completeScreen" hidden>
         <div class="quiz-card">
-
             <h2>完了</h2>
-
-            <p>
-                すべての問題が終了しました。
-            </p>
-
-            <button
-                id="backButton"
-                class="primary-button"
-                type="button"
-            >
+            <p>すべての問題が終了しました。</p>
+            <button id="backButton" class="primary-button" type="button">
                 戻る
             </button>
-
         </div>
-
     </section>
-
 </main>
-
-
+<!--<a href="../senta-kita.html">センター北</a>-->
 <script src="app.js"></script>
-
-<a href="../senta-kita.html">センター北</a>
 </body>
 </html>
